@@ -347,7 +347,7 @@ class VRWKV(nn.Module):
                  with_cp=False, ):
         if not isinstance(pretrained, (str, type(None))):
             raise TypeError('pretrained must be a str or None')
-        super().__init__(self.init_cfg)
+        super().__init__()
         self.embed_dims = embed_dims
         self.num_extra_tokens = 0
         self.num_layers = depth
