@@ -4,8 +4,8 @@ from functools import partial
 import torch
 import torch.nn as nn
 import torch.utils.checkpoint as cp
-from timm.models.layers import DropPath
 
+from model.components import DropPath
 from ops.modules import MSDeformAttn
 
 _logger = logging.getLogger(__name__)

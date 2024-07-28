@@ -14,6 +14,7 @@ from torch.autograd import Function
 from torch.autograd.function import once_differentiable
 from torch.cuda.amp import custom_bwd, custom_fwd
 
+# import MultiScaleDeformableAttention as MSDA
 from model.ops.dyn import MultiScaleDeformableAttention as MSDA
 
 
