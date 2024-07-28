@@ -51,7 +51,7 @@ at::Tensor ms_deform_attn_cuda_forward(
 
     AT_ASSERTM(batch % im2col_step_ == 0, "batch(%d) must divide im2col_step(%d)", batch, im2col_step_);
 
-    auto output = at::zeros({batch, num_query, num_heads, channels}, value.options()); // 初始化一个output
+    auto output = at::zeros({batch, num_query, num_heads, channels}, value.options());
 
     const int batch_n = im2col_step_;
     auto output_n = output.view({batch/im2col_step_, batch_n, num_query, num_heads, channels});
@@ -118,14 +118,14 @@ std::vector<at::Tensor> ms_deform_attn_cuda_backward(
 
     AT_ASSERTM(batch % im2col_step_ == 0, "batch(%d) must divide im2col_step(%d)", batch, im2col_step_);
 
-    auto grad_value = at::zeros_like(value); // value的梯度
-    auto grad_sampling_loc = at::zeros_like(sampling_loc); // sampling loc的梯度
-    auto grad_attn_weight = at::zeros_like(attn_weight); // attn weight的梯度
+    auto grad_value = at::zeros_like(value);
+    auto grad_sampling_loc = at::zeros_like(sampling_loc);
+    auto grad_attn_weight = at::zeros_like(attn_weight);
 
     const int batch_n = im2col_step_;
-    auto per_value_size = spatial_size * num_heads * channels; // 每个value的大小
-    auto per_sample_loc_size = num_query * num_heads * num_levels * num_point * 2; //每个sample loc的大小
-    auto per_attn_weight_size = num_query * num_heads * num_levels * num_point; // 每个attn weight的大小
+    auto per_value_size = spatial_size * num_heads * channels;
+    auto per_sample_loc_size = num_query * num_heads * num_levels * num_point * 2;
+    auto per_attn_weight_size = num_query * num_heads * num_levels * num_point;
     auto grad_output_n = grad_output.view({batch/im2col_step_, batch_n, num_query, num_heads, channels});
 
     for (int n = 0; n < batch/im2col_step_; ++n) // col2im

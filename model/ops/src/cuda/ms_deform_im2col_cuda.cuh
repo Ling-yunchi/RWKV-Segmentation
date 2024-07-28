@@ -94,14 +94,14 @@ __device__ void ms_deform_attn_col2im_bilinear(const scalar_t* &bottom_data,
                                                    scalar_t* grad_sampling_loc,
                                                    scalar_t* grad_attn_weight)
 {
-  const int h_low = floor(h);    // h向下取整
-  const int w_low = floor(w);    // w向下取整
-  const int h_high = h_low + 1;  // h向上取整
-  const int w_high = w_low + 1;  // w向上取整
+  const int h_low = floor(h);
+  const int w_low = floor(w);
+  const int h_high = h_low + 1;
+  const int w_high = w_low + 1;
 
-  const scalar_t lh = h - h_low; // h向下取整的大小
-  const scalar_t lw = w - w_low; // w向下取整的大小
-  const scalar_t hh = 1 - lh, hw = 1 - lw; // h,w向上取整的大小
+  const scalar_t lh = h - h_low;
+  const scalar_t lw = w - w_low;
+  const scalar_t hh = 1 - lh, hw = 1 - lw;
 
   const int w_stride = nheads * channels;
   const int h_stride = width * w_stride;

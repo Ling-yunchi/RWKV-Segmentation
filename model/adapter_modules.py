@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.utils.checkpoint as cp
 
 from model.components import DropPath
-from ops.modules import MSDeformAttn
+from .ops.modules import MSDeformAttn
 
 _logger = logging.getLogger(__name__)
 

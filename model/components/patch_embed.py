@@ -134,13 +134,13 @@ class PatchEmbed(nn.Module):
         if conv_type not in SUPPORT_CONVS:
             raise NotImplementedError(f"Unsupported Conv type {conv_type}")
         conv_layer = SUPPORT_CONVS[conv_type]
-        self.proj = conv_layer(in_channels=in_channels,
-                               out_channels=embed_dims,
-                               kernel_size=kernel_size,
-                               stride=stride,
-                               padding=padding,
-                               dilation=dilation,
-                               bias=bias)
+        self.projection = conv_layer(in_channels=in_channels,
+                                     out_channels=embed_dims,
+                                     kernel_size=kernel_size,
+                                     stride=stride,
+                                     padding=padding,
+                                     dilation=dilation,
+                                     bias=bias)
 
         if norm_layer is not None:
             self.norm = norm_layer(embed_dims)

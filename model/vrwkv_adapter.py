@@ -8,11 +8,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.init import normal_
 
-from ops.modules import MSDeformAttn
-from vrwkv import VRWKV
 from .adapter_modules import SpatialPriorModule, InteractionBlock, deform_inputs
 from .components import resize_pos_embed
+from .ops.modules import MSDeformAttn
 from .utils import trunc_normal_
+from .vrwkv import VRWKV
 
 _logger = logging.getLogger(__name__)
 

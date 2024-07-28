@@ -1,5 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import math
+import platform
 from typing import Sequence
 
 import torch
@@ -13,11 +14,14 @@ from model.utils import get_root_logger, load_model_checkpoint
 T_MAX = 8192  # increase this if your ctx_len is long [NOTE: TAKES LOTS OF VRAM!]
 # it's possible to go beyond CUDA limitations if you slice the ctx and pass the hidden state in each slice
 
+IS_WINDOWS = platform.system() == 'Windows'
 
-wkv_cuda = load(name="wkv", sources=["./cuda/wkv_op.cpp",
-                                     "./cuda/wkv_cuda.cu"],
+wkv_cuda = load(name="wkv", sources=["model/vrwkv/cuda/wkv_op.cpp",
+                                     "model/vrwkv/cuda/wkv_cuda.cu"],
                 verbose=True,
-                extra_cuda_cflags=['-res-usage', '--maxrregcount 60', '--use_fast_math', '-O3', '-Xptxas -O3',
+                extra_cuda_cflags=['-res-usage', '--maxrregcount=60' if IS_WINDOWS else '--maxrregcount 60',
+                                   '--use_fast_math', '-O3',
+                                   '' if IS_WINDOWS else '-Xptxas -O3',
                                    f'-DTmax={T_MAX}'])
 
 
