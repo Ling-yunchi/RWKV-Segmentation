@@ -8,7 +8,7 @@ from torch.utils.cpp_extension import load
 
 def load_extension():
     this_dir = os.path.dirname(os.path.abspath(__file__))
-    extensions_dir = os.path.join(this_dir, 'src')
+    extensions_dir = os.path.join(this_dir, '../src')
 
     main_file = glob.glob(os.path.join(extensions_dir, '*.cpp'))
     source_cpu = glob.glob(os.path.join(extensions_dir, 'cpu', '*.cpp'))
